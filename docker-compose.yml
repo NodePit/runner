@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  api:
+    image: ghcr.io/nodepit/runner-api:1
+    volumes:
+      - api-data:/nodepit
+    environment:
+      # [A1] The connection URL of the MongoDB database. Make sure username and
+      # password match the environment variables MONGO_INITDB_ROOT_USERNAME
+      # (see M1) and MONGO_INITDB_ROOT_PASSWORD (see M2). The expected format is
+      # "mongodb://<username>:<password>@mongodb/nodepit-runner?authSource=admin"
+      DB_URL: mongodb://root:drnFEtX_PWKizUzKr3KT@mongodb/nodepit-runner?authSource=admin
+      # [A2] The API key used by executors to receive jobs and provide run
+      # results. Please make sure the provided value is equals to the API_KEY
+      # configured for the executor container (see E1).
+      API_KEY: nYCA3oaqhYJ__GEteWye
+      WEB_BASE_URL: http://localhost:8080
+    depends_on:
+      - mongodb
+
+  web:
+    image: ghcr.io/nodepit/runner-web:1
+    ports:
+      - 8080:80
+    environment:
+      API_BASE_URL: http://api:3000
+    depends_on:
+      - api
+
+  executor:
+    image: ghcr.io/nodepit/runner-executor:1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - executor-data:/opt/data
+    environment:
+      API_BASE_URL: http://api:3000
+      # [E1] The API key to receive jobs and provide run results from the API.
+      # Please make sure the provided value is equals to the API_KEY configured
+      # for the API container(see A2).
+      API_KEY: nYCA3oaqhYJ__GEteWye
+      SHARED_VOLUME_NAME: executor-data
+    depends_on:
+      - api
+    deploy:
+      # [E2] The number of executors that shall be started. Please adjust this
+      # according to your number of schedules and server resources. You can
+      # scale the number of executors later by running the Docker command
+      # `docker-compose scale executor=2`.
+      replicas: 1
+
+  mongodb:
+    image: mongo:6.0.5
+    volumes:
+      - mongodb-data:/data/db
+    environment:
+      # [M1] The username of the MongoDB root user. This needs to match the
+      # username provided in the database url (see A1).
+      MONGO_INITDB_ROOT_USERNAME: root
+      # [M2] The password of the MongoDB root user. This needs to match the
+      # password provided in the database url (see A1).
+      MONGO_INITDB_ROOT_PASSWORD: drnFEtX_PWKizUzKr3KT
+
+volumes:
+  mongodb-data:
+  api-data:
+  executor-data:
+    name: executor-data
