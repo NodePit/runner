@@ -1,11 +1,15 @@
 <p align="center">
-  <img src="./docs/nodepit-rounded.svg" height="130"/>
+  <a href="https://github.com/NodePit/runner">
+    <img src="./docs/nodepit-rounded.svg" height="130"/>
+  </a>
 </p>
 <p align="center">
   <b style="font-size: large">NodePit Runner – Workflows Around the Clock!</b>
 </p>
 <p align="center">
-  <img src="https://img.shields.io/static/v1?label=Version&message=1.0.0&color=green"/>
+  <a href="https://github.com/NodePit/runner">
+    <img src="https://img.shields.io/static/v1?label=Version&message=1.0.0&color=green"/>
+  </a>
   <a href="https://nodepit.com/product/runner" alt="NodePit Runner: Product">
     <img src="https://img.shields.io/static/v1?label=NodePit&message=Product&color=red"/>
   </a>
