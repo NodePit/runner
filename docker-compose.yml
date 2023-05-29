@@ -46,7 +46,7 @@ services:
       # [E2] The number of executors that shall be started. Please adjust this
       # according to your number of schedules and server resources. You can
       # scale the number of executors later by running the Docker command
-      # `docker-compose scale executor=2`.
+      # `docker compose scale executor=2`.
       replicas: 1
 
   mongodb:

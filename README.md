@@ -37,15 +37,15 @@ Docker and Docker Compose is the simplest way to run NodePit Runner on a single 
    1. On Windows follow [these](https://docs.docker.com/desktop/install/windows-install/) instructions
 1. Download the [`docker-compose.yml`](docker-compose.yml) file.
 1. Edit the environment sections of `docker-compose.yml`. See the inline comments for more information
-1. Start NodePit Runner with `docker-compose up -d`
+1. Start NodePit Runner with `docker compose up -d`
 1. Open your browser and navigate to `http://localhost:8080`
     1. Follow the instructions to create your initial admin account
     1. Go to the `Settings` menu and configure NodePit Runner according to your preferences
 
 In order to upgrade an already running instance, perform the following steps. No worries, database migrations will happen automatically.
 
-1. Pull latest docker images with `docker-compose pull`
-1. Restart NodePit Runner with `docker-compose up -d`
+1. Pull latest docker images with `docker compose pull`
+1. Restart NodePit Runner with `docker compose up -d`
 
 ## 🛠 System Requirements
 
