@@ -67,6 +67,24 @@ Unsure if NodePit Runner is for you? Drop us a [mail](mailto:mail@nodepit.com) a
 
 NodePit Runner is licensed under the [NodePit Runner: Terms and Conditions](https://nodepit.com/product/runner/license). By installing and/or using NodePit Runner, you agree and acknowledge the terms and conditions.
 
+## 🤓 Advanced Topics
+
+<details>
+  <summary>Show more</summary>
+
+  ## Vagrant
+
+  If you use [Vagrant](https://developer.hashicorp.com/vagrant), there’s a [Vagrantfile](Vagrantfile) to run a Debian box with Docker preinstalled. Start and connect to the box as follows:
+
+  ```shell
+  vagrant up
+  vagrant ssh
+  ```
+
+  The project directory is mounted to `/vagrant` within the box. From there, you can continue with `docker compose up -d`
+
+</details>
+
 ---
 
 Created by [nodepit.com](https://nodepit.com), 2023.
