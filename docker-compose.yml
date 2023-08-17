@@ -15,6 +15,11 @@ services:
       # results. Please make sure the provided value is equals to the API_KEY
       # configured for the executor container (see E1).
       API_KEY: nYCA3oaqhYJ__GEteWye
+      # [A3] This works if you only access the Runner from your local computer -
+      # if you make it accessible for other users at some point, you’ll need to
+      # change this either to a hostname (`https://runner.example.com:8080`) or
+      # a static IP address (this is an advanced topic - you’ll likely want to
+      # set up your runner behind a reverse proxy with HTTPS)
       WEB_BASE_URL: http://localhost:8080
     depends_on:
       - mongodb
