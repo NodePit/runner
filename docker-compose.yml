@@ -42,7 +42,7 @@ services:
       API_BASE_URL: http://api:3000
       # [E1] The API key to receive jobs and provide run results from the API.
       # Please make sure the provided value is equals to the API_KEY configured
-      # for the API container(see A2).
+      # for the API container (see A2).
       API_KEY: nYCA3oaqhYJ__GEteWye
       SHARED_VOLUME_NAME: executor-data
     depends_on:
