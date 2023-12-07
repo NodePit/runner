@@ -8,7 +8,7 @@
 </p>
 <p align="center">
   <a href="https://github.com/NodePit/runner">
-    <img src="https://img.shields.io/static/v1?label=Version&message=1.3.1&color=green"/>
+    <img src="https://img.shields.io/static/v1?label=Version&message=1.4.0&color=green"/>
   </a>
   <a href="https://nodepit.com/product/runner" alt="NodePit Runner: Product">
     <img src="https://img.shields.io/static/v1?label=NodePit&message=Product&color=red"/>
