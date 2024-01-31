@@ -45,6 +45,13 @@ services:
       # for the API container (see A2).
       API_KEY: nYCA3oaqhYJ__GEteWye
       SHARED_VOLUME_NAME: executor-data
+      # [E3] If you are experiencing out of memory (OOM) errors, you can limit
+      # the resource usage of the executor's worker containers by setting
+      # resource limits in relation to your host machine. More information
+      # here: https://docs.docker.com/config/containers/resource_constraints/
+      # DOCKER_CPU_PERIOD: 100000
+      # DOCKER_CPU_QUOTA: 85000
+      # DOCKER_MEMORY: 1500000000
     depends_on:
       - api
     deploy:
