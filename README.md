@@ -51,7 +51,7 @@ In order to upgrade an already running instance, perform the following steps. No
 
 ## 🛠 System Requirements
 
-* Recommendation: 2 CPUs, 8 GB Memory (equivalent of `t4g.large` on AWS EC2, or `CX31` on Hetzner Cloud)
+* Recommendation: 2 CPUs, 8 GB Memory (equivalent of `t4g.large` on AWS EC2, `CX31` on Hetzner Cloud, or `B2ms` on Azure)
 * Disk usage varies based on usage and workflow sizes - we recommend at least 50 GB
 * Any operating system which can run Docker – we recommend and use Linux Debian
 
