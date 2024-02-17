@@ -1,5 +1,12 @@
 version: '3.8'
 
+x-logging:
+  &default-logging
+  driver: json-file
+  options:
+    max-size: '100m'
+    max-file: '5'
+
 services:
   api:
     image: ghcr.io/nodepit/runner-api:1
@@ -23,6 +30,7 @@ services:
       WEB_BASE_URL: http://localhost:8080
     depends_on:
       - mongodb
+    logging: *default-logging
 
   web:
     image: ghcr.io/nodepit/runner-web:1
@@ -32,6 +40,7 @@ services:
       API_BASE_URL: http://api:3000
     depends_on:
       - api
+    logging: *default-logging
 
   executor:
     image: ghcr.io/nodepit/runner-executor:1
@@ -60,6 +69,7 @@ services:
       # scale the number of executors later by running the Docker command
       # `docker compose scale executor=2`.
       replicas: 1
+    logging: *default-logging
 
   mongodb:
     image: mongo:6.0.5
@@ -72,6 +82,7 @@ services:
       # [M2] The password of the MongoDB root user. This needs to match the
       # password provided in the database url (see A1).
       MONGO_INITDB_ROOT_PASSWORD: drnFEtX_PWKizUzKr3KT
+    logging: *default-logging
 
 volumes:
   mongodb-data:
