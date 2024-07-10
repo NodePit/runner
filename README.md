@@ -7,11 +7,8 @@
   <b style="font-size: large">NodePit Runner – Workflows Around the Clock!</b>
 </p>
 <p align="center">
-  <a href="https://github.com/NodePit/runner">
-    <img src="https://img.shields.io/static/v1?label=Version&message=1.12.1&color=green"/>
-  </a>
   <a href="https://nodepit.com/product/runner" alt="NodePit Runner: Product">
-    <img src="https://img.shields.io/static/v1?label=NodePit&message=Product&color=red"/>
+    <img src="https://nodepit.com/product/runner/badge.svg"/>
   </a>
   <a href="https://nodepit.com/product/runner/changelog" alt="NodePit Runner: Changelog">
     <img src="https://img.shields.io/static/v1?label=NodePit&message=Changelog&color=blue"/>
