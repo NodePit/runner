@@ -85,10 +85,12 @@ services:
       # Note that both of these values, [M1] and [M2], are only considered when
       # *initializing* a new database. This means:
       # (1) Later changes do not have any effect,
-      # (2) You can theoretially remove both entries once the database is
+      # (2) You can theoretically remove both entries once the database is
       #     initialized,
       # (3) To change the password later, use the `mongosh` with
       #     db.changeUserPassword() - see https://www.mongodb.com/docs/manual/reference/method/db.changeUserPassword/
+      #     Please also make sure [A1] is updated accordingly and restart the
+      #     stack with `docker compose up` to apply the changes.
     logging: *default-logging
 
 volumes:
