@@ -1,5 +1,3 @@
-version: '3.8'
-
 x-logging:
   &default-logging
   driver: json-file
@@ -82,6 +80,15 @@ services:
       # [M2] The password of the MongoDB root user. This needs to match the
       # password provided in the database url (see A1).
       MONGO_INITDB_ROOT_PASSWORD: drnFEtX_PWKizUzKr3KT
+      # Note that both of these values, [M1] and [M2], are only considered when
+      # *initializing* a new database. This means:
+      # (1) Later changes do not have any effect,
+      # (2) You can theoretically remove both entries once the database is
+      #     initialized,
+      # (3) To change the password later, use the `mongosh` with
+      #     db.changeUserPassword() - see https://www.mongodb.com/docs/manual/reference/method/db.changeUserPassword/
+      #     Please also make sure [A1] is updated accordingly and restart the
+      #     stack with `docker compose up` to apply the changes.
     logging: *default-logging
 
 volumes:
