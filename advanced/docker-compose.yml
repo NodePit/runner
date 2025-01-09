@@ -121,6 +121,7 @@ services:
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx-proxy/conf.d:/etc/nginx/conf.d
     labels:
       - com.github.nginx-proxy.nginx=true
 
