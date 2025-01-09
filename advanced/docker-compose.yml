@@ -77,7 +77,6 @@ services:
       # Please make sure the provided value is equals to the API_KEY configured
       # for the API container (see A2).
       API_KEY: nYCA3oaqhYJ__GEteWye
-      SHARED_VOLUME_NAME: executor-data
       # [E3] If you are experiencing out of memory (OOM) errors, you can limit
       # the resource usage of the executor's worker containers by setting
       # resource limits in relation to your host machine. More information
@@ -146,7 +145,6 @@ volumes:
   mongodb-data:
   api-data:
   executor-data:
-    name: executor-data
   certs:
   vhost:
   html:
