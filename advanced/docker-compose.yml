@@ -85,6 +85,14 @@ services:
       # DOCKER_CPU_QUOTA: 85000
       # DOCKER_MEMORY: 1500000000
       DOCKER_NETWORK_MODE: nodepit-runner
+      # [E4] Give the executor a name which will be displayed in the web
+      # interface unter the “Executors” tab. This is useful if you have multiple
+      # executors running.
+      # INITIAL_DESCRIPTION: My Executor
+      # [E5] Set executor tags. Tags are used to assign runs of environments
+      # and schedules to specific executors. Runs with tags can only be
+      # executed by executors with the same tags.
+      # INITIAL_TAGS: large,fast,awesome
     depends_on:
       - api
     deploy:
