@@ -98,7 +98,7 @@ services:
       - com.centurylinklabs.watchtower.enable=true
 
   mongodb:
-    image: mongo:6.0.5
+    image: mongo:6.0.20
     restart: always
     volumes:
       - mongodb-data:/data/db
@@ -111,7 +111,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: drnFEtX_PWKizUzKr3KT
 
   nginx-proxy:
-    image: nginxproxy/nginx-proxy:1.4
+    image: nginxproxy/nginx-proxy:1.6.4
     restart: always
     ports:
       - 80:80
@@ -126,7 +126,7 @@ services:
       - com.github.nginx-proxy.nginx=true
 
   acme-companion:
-    image: nginxproxy/acme-companion:2.2
+    image: nginxproxy/acme-companion:2.5.1
     restart: always
     volumes:
       - certs:/etc/nginx/certs
