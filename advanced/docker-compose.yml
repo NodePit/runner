@@ -84,7 +84,6 @@ services:
       # DOCKER_CPU_PERIOD: 100000
       # DOCKER_CPU_QUOTA: 85000
       # DOCKER_MEMORY: 1500000000
-      DOCKER_NETWORK_MODE: nodepit-runner
       # [E4] Give the executor a name which will be displayed in the web
       # interface unter the “Executors” tab. This is useful if you have multiple
       # executors running.
