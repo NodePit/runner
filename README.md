@@ -84,4 +84,4 @@ NodePit Runner is licensed under the [NodePit Runner: Terms and Conditions](http
 
 ---
 
-Created by [nodepit.com](https://nodepit.com), 2023, 2024, 2025.
+Created by [nodepit.com](https://nodepit.com), 2023, 2024, 2025, 2026.
