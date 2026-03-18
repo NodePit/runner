@@ -48,7 +48,7 @@ In order to upgrade an already running instance, perform the following steps. No
 
 ## 🛠 System Requirements
 
-* Recommendation: 2 CPUs, 8 GB Memory (equivalent of `t4g.large` on AWS EC2, `CX31` on Hetzner Cloud, or `B2ms` on Azure)
+* Recommendation: 2 CPUs, 8 GB Memory (equivalent of `t4g.large` on AWS EC2, `CX33` on Hetzner Cloud, or `B2ms` on Azure)
 * Disk usage varies based on usage and workflow sizes - we recommend at least 50 GB
 * Any operating system which can run Docker – we recommend and use Linux Debian
 
@@ -56,7 +56,6 @@ In order to upgrade an already running instance, perform the following steps. No
 
 Unsure if NodePit Runner is for you? Drop us a [mail](mailto:mail@nodepit.com) and we answer your questions and even better get you access to our cloud version of NodePit Runner for testing.
 
-* Follow [@NodePit](https://twitter.com/nodepit/) on Twitter or <a href="https://botsin.space/@nodepit" rel="me">botsin.space/@nodepit</a> on Mastodon
 * Give a ⭐️ for this repo
 * Questions? Just drop us a [mail](mailto:mail@nodepit.com)
 
