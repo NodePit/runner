@@ -56,7 +56,6 @@ In order to upgrade an already running instance, perform the following steps. No
 
 Unsure if NodePit Runner is for you? Drop us a [mail](mailto:mail@nodepit.com) and we answer your questions and even better get you access to our cloud version of NodePit Runner for testing.
 
-* Follow [@NodePit](https://twitter.com/nodepit/) on Twitter or <a href="https://botsin.space/@nodepit" rel="me">botsin.space/@nodepit</a> on Mastodon
 * Give a ⭐️ for this repo
 * Questions? Just drop us a [mail](mailto:mail@nodepit.com)
 
