@@ -28,29 +28,19 @@
 
 Docker and Docker Compose is the simplest way to run NodePit Runner on a single server or local machine.
 
-1. Install Docker and Docker Compose
-   1. On Linux follow [these](https://docs.docker.com/desktop/install/linux-install/) instructions
-   1. On macOS follow [these](https://docs.docker.com/desktop/install/mac-install/) instructions or use Hombrew `brew install --cask docker`
-   1. On Windows follow [these](https://docs.docker.com/desktop/install/windows-install/) instructions
+1. [Install Docker and Docker Compose](https://docs.docker.com/compose/install/)
 1. Download the [`docker-compose.yml`](https://raw.githubusercontent.com/NodePit/runner/main/docker-compose.yml) file (right click the link and “Save as” to an arbitrary location on your computer)
-1. Edit the environment sections of `docker-compose.yml` (see the inline comments for more information)
 1. Open a terminal and change to the directory where you saved the `docker-compose.yml` file
 1. Start NodePit Runner with `docker compose up -d`
-1. Open your browser and navigate to `http://localhost:8080`
-    1. Follow the instructions to create your initial admin account
-    1. Go to the `Settings` menu and configure NodePit Runner according to your preferences
-    1. If you're not running a local-only setup, change `WEB_BASE_URL` as desired and navigate to this URL instead
+1. Open your browser and navigate to `http://localhost:8080` and follow the instructions to create your initial admin account
 
-In order to upgrade an already running instance, perform the following steps. No worries, database migrations will happen automatically.
+For configuration options (public URL, secrets, scaling executors, …) and everything else, see [**Installation**](https://docs.nodepit.com/runner/installation) and [**Configuration**](https://docs.nodepit.com/runner/configuration) in the docs.
 
-1. Pull latest docker images with `docker compose pull`
-1. Restart NodePit Runner with `docker compose up -d`
+To upgrade an already running instance, run `docker compose pull` followed by `docker compose up -d`. Database migrations happen automatically.
 
-## 🛠 System Requirements
+## 📚 Documentation
 
-* Recommendation: 2 CPUs, 8 GB Memory (equivalent of `t4g.large` on AWS EC2, `CX33` on Hetzner Cloud, or `B2ms` on Azure)
-* Disk usage varies based on usage and workflow sizes - we recommend at least 50 GB
-* Any operating system which can run Docker – we recommend and use Linux Debian
+The full manual — installation, configuration, guides and the API reference — lives at [**docs.nodepit.com/runner**](https://docs.nodepit.com/runner).
 
 ## 🤗 Get Involved
 
