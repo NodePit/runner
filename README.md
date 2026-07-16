@@ -47,11 +47,15 @@ The full manual — installation, configuration, guides and the API reference �
 The [`extensions/`](extensions/) directory has optional add-ons, each a self-contained Compose file you layer on top of `docker-compose.yml` with `-f`. Some need their own settings — copy [`.env.example`](.env.example) to `.env` (next to `docker-compose.yml`) and fill in what’s needed:
 
 * [`extensions/nginx`](extensions/nginx) — HTTPS reverse proxy with automatic Let’s Encrypt certificates.
+* [`extensions/watchtower`](extensions/watchtower) — automatically pulls and restarts containers when new images are released.
+
+Mix and match as needed, for example:
 
 ```shell
 docker compose \
   -f docker-compose.yml \
   -f extensions/nginx/docker-compose.yml \
+  -f extensions/watchtower/docker-compose.yml \
   up -d
 ```
 
@@ -74,6 +78,16 @@ NodePit Runner is licensed under the [NodePit Runner: Terms and Conditions](http
   ## Changing secrets and settings
 
   `docker-compose.yml` works out of the box with built-in default secrets. To change one — e.g. rotate the MongoDB password or set a public `WEB_BASE_URL` — clone this repo, copy [`.env.example`](.env.example) to `.env`, and edit the values there. Because `.env` is read by every service that needs a given value, you only need to change it in one place.
+
+  ## Combining extensions without repeating `-f` flags
+
+  Instead of passing multiple `-f` flags every time, set `COMPOSE_FILE` in `.env`:
+
+  ```
+  COMPOSE_FILE=docker-compose.yml:extensions/nginx/docker-compose.yml:extensions/watchtower/docker-compose.yml
+  ```
+
+  and then just run `docker compose up -d`.
 
   ## Vagrant
 

@@ -1,0 +1,27 @@
+# NodePit Runner — watchtower extension
+#
+# Automatically keeps the NodePit Runner containers up to date by pulling
+# and restarting them on a daily interval.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f extensions/watchtower/docker-compose.yml up -d
+
+services:
+  api:
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+  web:
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+  executor:
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+  watchtower:
+    image: nickfedor/watchtower:1.19.0
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 86400 --label-enable --cleanup
