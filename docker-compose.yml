@@ -7,8 +7,8 @@
 # `${VAR:-default}`. To change one (e.g. the shared API key), place a `.env`
 # file next to this one and set the variable there — see `.env.example`.
 #
-# Want HTTPS, automatic updates, or backups? See the `extensions/` directory
-# and the README.
+# Want HTTPS, automatic updates, backups, or a Docker management UI? See the
+# `extensions/` directory and the README.
 #
 # Docs:
 #   Installation   https://docs.nodepit.com/runner/installation

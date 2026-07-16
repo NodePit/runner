@@ -1,0 +1,22 @@
+# NodePit Runner — portainer extension
+#
+# Adds Portainer CE, a web UI for managing the Docker stack (start/stop
+# containers, view logs, inspect resource usage) without needing the CLI.
+# On first visit, it asks you to create an admin account.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f extensions/portainer/docker-compose.yml up -d
+#   Open http://localhost:9000
+
+services:
+  portainer:
+    image: portainer/portainer-ce:2.39.5
+    restart: unless-stopped
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-data:/data
+
+volumes:
+  portainer-data:
