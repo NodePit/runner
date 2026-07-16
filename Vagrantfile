@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "debian/buster64"
+  config.vm.box = "debian/bookworm64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -29,6 +29,13 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
   config.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
+
+  # Extension ports — only reachable if you're also running the
+  # corresponding extension inside the box: 80/443 for extensions/nginx,
+  # 9000 for extensions/portainer.
+  config.vm.network "forwarded_port", guest: 80, host: 80, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 443, host: 443, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 9000, host: 9000, host_ip: "127.0.0.1"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
