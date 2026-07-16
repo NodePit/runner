@@ -42,6 +42,19 @@ To upgrade an already running instance, run `docker compose pull` followed by `d
 
 The full manual — installation, configuration, guides and the API reference — lives at [**docs.nodepit.com/runner**](https://docs.nodepit.com/runner).
 
+## 🧩 Extensions
+
+The [`extensions/`](extensions/) directory has optional add-ons, each a self-contained Compose file you layer on top of `docker-compose.yml` with `-f`. Some need their own settings — copy [`.env.example`](.env.example) to `.env` (next to `docker-compose.yml`) and fill in what’s needed:
+
+* [`extensions/nginx`](extensions/nginx) — HTTPS reverse proxy with automatic Let’s Encrypt certificates.
+
+```shell
+docker compose \
+  -f docker-compose.yml \
+  -f extensions/nginx/docker-compose.yml \
+  up -d
+```
+
 ## 🤗 Get Involved
 
 Unsure if NodePit Runner is for you? Drop us a [mail](mailto:mail@nodepit.com) and we answer your questions and even better get you access to our cloud version of NodePit Runner for testing.
