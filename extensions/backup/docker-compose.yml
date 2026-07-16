@@ -1,0 +1,48 @@
+# NodePit Runner — backup extension
+#
+# Backs up the mongodb database (via mongodump, so it's consistent even
+# while Runner is running) and the api-data volume (uploaded workflows and
+# environments) on a daily schedule. The executor-data volume is excluded —
+# it's the executor's working/cache directory, not source-of-truth data.
+#
+# By default, backups are written locally to ./extensions/backup/archive on
+# the host. To also (or instead) ship them off-site, set the AWS_S3_* / S3_*
+# variables in .env — see .env.example. Uses
+# https://offen.github.io/docker-volume-backup/ under the hood.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f extensions/backup/docker-compose.yml up -d
+
+services:
+  mongodb:
+    volumes:
+      - mongodb-dump:/dump
+    labels:
+      docker-volume-backup.archive-pre: >-
+        /bin/sh -c 'mongodump --archive --gzip
+        --uri="mongodb://${MONGO_ROOT_USERNAME:-root}:${MONGO_ROOT_PASSWORD:-drnFEtX_PWKizUzKr3KT}@localhost/nodepit-runner?authSource=admin"
+        > /dump/mongodb.archive.gz'
+      docker-volume-backup.archive-post: "rm -f /dump/mongodb.archive.gz"
+
+  backup:
+    image: offen/docker-volume-backup:v2.48.2
+    restart: unless-stopped
+    environment:
+      BACKUP_CRON_EXPRESSION: ${BACKUP_CRON_EXPRESSION:-0 3 * * *}
+      BACKUP_FILENAME: npr-backup-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_RETENTION_DAYS: ${BACKUP_RETENTION_DAYS:-7}
+      # Leave unset to skip shipping backups off-site — local backups under
+      # ./extensions/backup/archive still happen either way.
+      AWS_S3_BUCKET_NAME: ${BACKUP_S3_BUCKET:-}
+      AWS_S3_PATH: ${BACKUP_S3_PATH:-}
+      AWS_ACCESS_KEY_ID: ${BACKUP_S3_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${BACKUP_S3_SECRET_ACCESS_KEY:-}
+      AWS_ENDPOINT: ${BACKUP_S3_ENDPOINT:-s3.amazonaws.com}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - mongodb-dump:/backup/mongodb-dump:ro
+      - api-data:/backup/api-data:ro
+      - ./extensions/backup/archive:/archive
+
+volumes:
+  mongodb-dump:

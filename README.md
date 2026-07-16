@@ -48,6 +48,7 @@ The [`extensions/`](extensions/) directory has optional add-ons, each a self-con
 
 * [`extensions/nginx`](extensions/nginx) — HTTPS reverse proxy with automatic Let’s Encrypt certificates.
 * [`extensions/watchtower`](extensions/watchtower) — automatically pulls and restarts containers when new images are released.
+* [`extensions/backup`](extensions/backup) — daily database and workflow-data backups, stored locally and optionally shipped to an S3-compatible bucket.
 
 Mix and match as needed, for example:
 
