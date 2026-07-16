@@ -10,6 +10,13 @@
   <a href="https://nodepit.com/product/runner" alt="NodePit Runner: Product">
     <img src="https://nodepit.com/product/runner/badge.svg"/>
   </a>
+  <a href="https://nodepit.com/product/runner" alt="NodePit Runner: Pulls">
+    <img src="https://nodepit.com/product/runner/badge.svg?type=downloads"/>
+  </a>
+  <br/>
+  <a href="https://docs.nodepit.com/runner" alt="NodePit Runner: Docs">
+    <img src="https://img.shields.io/static/v1?label=NodePit&message=Docs&color=blue"/>
+  </a>
   <a href="https://nodepit.com/product/runner/changelog" alt="NodePit Runner: Changelog">
     <img src="https://img.shields.io/static/v1?label=NodePit&message=Changelog&color=blue"/>
   </a>
