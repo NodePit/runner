@@ -58,6 +58,10 @@ NodePit Runner is licensed under the [NodePit Runner: Terms and Conditions](http
 <details>
   <summary>Show more</summary>
 
+  ## Changing secrets and settings
+
+  `docker-compose.yml` works out of the box with built-in default secrets. To change one — e.g. rotate the MongoDB password or set a public `WEB_BASE_URL` — clone this repo, copy [`.env.example`](.env.example) to `.env`, and edit the values there. Because `.env` is read by every service that needs a given value, you only need to change it in one place.
+
   ## Vagrant
 
   If you use [Vagrant](https://developer.hashicorp.com/vagrant), there’s a [Vagrantfile](Vagrantfile) to run a Debian box with Docker preinstalled. Start and connect to the box as follows:
