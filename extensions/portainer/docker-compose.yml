@@ -4,6 +4,13 @@
 # containers, view logs, inspect resource usage) without needing the CLI.
 # On first visit, it asks you to create an admin account.
 #
+# Bound to 127.0.0.1 only — with the Docker socket mounted, anyone who can
+# log in has root-equivalent access to the host, so it's not exposed
+# publicly by default. On a remote host, reach it via an SSH tunnel:
+#   ssh -L 9000:localhost:9000 user@host
+# The nginx extension doesn't proxy Portainer, only web/api — combining
+# the two requires extending extensions/nginx yourself.
+#
 # Usage:
 #   docker compose -f docker-compose.yml -f extensions/portainer/docker-compose.yml up -d
 #   Open http://localhost:9000
@@ -13,7 +20,7 @@ services:
     image: portainer/portainer-ce:2.39.5
     restart: unless-stopped
     ports:
-      - 9000:9000
+      - 127.0.0.1:9000:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer-data:/data
