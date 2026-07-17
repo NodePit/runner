@@ -1,0 +1,40 @@
+name: Validate Compose
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: base
+            files: -f docker-compose.yml
+          - name: nginx
+            files: -f docker-compose.yml -f extensions/nginx/docker-compose.yml
+          - name: watchtower
+            files: -f docker-compose.yml -f extensions/watchtower/docker-compose.yml
+          - name: backup
+            files: -f docker-compose.yml -f extensions/backup/docker-compose.yml
+          - name: portainer
+            files: -f docker-compose.yml -f extensions/portainer/docker-compose.yml
+          - name: all extensions combined
+            files: -f docker-compose.yml -f extensions/nginx/docker-compose.yml -f extensions/watchtower/docker-compose.yml -f extensions/backup/docker-compose.yml -f extensions/portainer/docker-compose.yml
+    env:
+      DOMAIN: example.com
+      LETSENCRYPT_EMAIL: admin@example.com
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - run: docker compose ${{ matrix.files }} config --quiet

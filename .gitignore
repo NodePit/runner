@@ -1,1 +1,4 @@
 .vagrant
+.env
+extensions/nginx/conf.d/default.conf
+extensions/backup/archive/

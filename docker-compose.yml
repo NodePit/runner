@@ -1,7 +1,14 @@
 # NodePit Runner — Docker Compose file
 #
-# Four services: api, web, executor and mongodb. Edit the values marked below,
-# then run `docker compose up -d` to start the stack.
+# Four services: api, web, executor and mongodb. Works out of the box with
+# `docker compose up -d` — no editing required.
+#
+# All secrets and settings below have working defaults baked in via
+# `${VAR:-default}`. To change one (e.g. the shared API key), place a `.env`
+# file next to this one and set the variable there — see `.env.example`.
+#
+# Want HTTPS, automatic updates, backups, or a Docker management UI? See the
+# `extensions/` directory and the README.
 #
 # Docs:
 #   Installation   https://docs.nodepit.com/runner/installation
@@ -21,21 +28,24 @@ x-logging:
 services:
   api:
     image: ghcr.io/nodepit/runner-api:1
+    restart: unless-stopped
     volumes:
       - api-data:/nodepit
     environment:
-      # Must match MONGO_INITDB_ROOT_USERNAME/PASSWORD on the mongodb service below.
-      DB_URL: mongodb://root:drnFEtX_PWKizUzKr3KT@mongodb/nodepit-runner?authSource=admin
+      # ⚠️ Public default — override in .env before production.
+      DB_URL: mongodb://${MONGO_ROOT_USERNAME:-root}:${MONGO_ROOT_PASSWORD:-drnFEtX_PWKizUzKr3KT}@mongodb/nodepit-runner?authSource=admin
       # Shared secret with API_KEY on the executor service below.
-      API_KEY: nYCA3oaqhYJ__GEteWye
+      # ⚠️ Public default — override in .env before production.
+      API_KEY: ${API_KEY:-nYCA3oaqhYJ__GEteWye}
       # The URL Runner is reachable at. Change for anything beyond local use.
-      WEB_BASE_URL: http://localhost:8080
+      WEB_BASE_URL: ${WEB_BASE_URL:-http://localhost:8080}
     depends_on:
       - mongodb
     logging: *default-logging
 
   web:
     image: ghcr.io/nodepit/runner-web:1
+    restart: unless-stopped
     ports:
       - 8080:80
     environment:
@@ -46,13 +56,14 @@ services:
 
   executor:
     image: ghcr.io/nodepit/runner-executor:1
+    restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - executor-data:/opt/data
     environment:
       API_BASE_URL: http://api:3000
       # Shared secret with API_KEY on the api service above.
-      API_KEY: nYCA3oaqhYJ__GEteWye
+      API_KEY: ${API_KEY:-nYCA3oaqhYJ__GEteWye}
     depends_on:
       - api
     deploy:
@@ -61,14 +72,15 @@ services:
     logging: *default-logging
 
   mongodb:
-    image: mongo:7.0.31
+    image: mongo:7.0.37
+    restart: unless-stopped
     volumes:
       - mongodb-data:/data/db
     environment:
-      # Must match the username/password in DB_URL on the api service above.
-      # Only used when initializing a new database — see the docs to change it later.
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: drnFEtX_PWKizUzKr3KT
+      # Only used when initializing a new database — see docs to change it later.
+      # ⚠️ Public default — override in .env before production.
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:-root}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-drnFEtX_PWKizUzKr3KT}
     logging: *default-logging
 
 volumes:

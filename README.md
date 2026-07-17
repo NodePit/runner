@@ -10,6 +10,13 @@
   <a href="https://nodepit.com/product/runner" alt="NodePit Runner: Product">
     <img src="https://nodepit.com/product/runner/badge.svg"/>
   </a>
+  <a href="https://nodepit.com/product/runner" alt="NodePit Runner: Pulls">
+    <img src="https://nodepit.com/product/runner/badge.svg?type=downloads"/>
+  </a>
+  <br/>
+  <a href="https://docs.nodepit.com/runner" alt="NodePit Runner: Docs">
+    <img src="https://img.shields.io/static/v1?label=NodePit&message=Docs&color=blue"/>
+  </a>
   <a href="https://nodepit.com/product/runner/changelog" alt="NodePit Runner: Changelog">
     <img src="https://img.shields.io/static/v1?label=NodePit&message=Changelog&color=blue"/>
   </a>
@@ -42,6 +49,25 @@ To upgrade an already running instance, run `docker compose pull` followed by `d
 
 The full manual — installation, configuration, guides and the API reference — lives at [**docs.nodepit.com/runner**](https://docs.nodepit.com/runner).
 
+## 🧩 Extensions
+
+The [`extensions/`](extensions/) directory has optional add-ons, each a self-contained Compose file you layer on top of `docker-compose.yml` with `-f`. Some need their own settings — copy [`.env.example`](.env.example) to `.env` (next to `docker-compose.yml`) and fill in what’s needed:
+
+* [`extensions/nginx`](extensions/nginx) — HTTPS reverse proxy with automatic Let’s Encrypt certificates.
+* [`extensions/watchtower`](extensions/watchtower) — automatically pulls and restarts containers when new images are released.
+* [`extensions/backup`](extensions/backup) — daily database and workflow-data backups, stored locally and optionally shipped to an S3-compatible bucket.
+* [`extensions/portainer`](extensions/portainer) — a web UI for managing the Docker stack without the CLI.
+
+Mix and match as needed, for example:
+
+```shell
+docker compose \
+  -f docker-compose.yml \
+  -f extensions/nginx/docker-compose.yml \
+  -f extensions/watchtower/docker-compose.yml \
+  up -d
+```
+
 ## 🤗 Get Involved
 
 Unsure if NodePit Runner is for you? Drop us a [mail](mailto:mail@nodepit.com) and we answer your questions and even better get you access to our cloud version of NodePit Runner for testing.
@@ -58,7 +84,23 @@ NodePit Runner is licensed under the [NodePit Runner: Terms and Conditions](http
 <details>
   <summary>Show more</summary>
 
-  ## Vagrant
+  ### Changing secrets and settings
+
+  `docker-compose.yml` works out of the box with built-in default secrets. To change one — e.g. the shared API key or a public `WEB_BASE_URL` — clone this repo, copy [`.env.example`](.env.example) to `.env`, and edit the values there. Because `.env` is read by every service that needs a given value, you only need to change it in one place.
+
+  The MongoDB password is a special case: setting `MONGO_ROOT_PASSWORD` in `.env` only takes effect when the database is first initialized, not on a running installation. See [Configuration](https://docs.nodepit.com/runner/configuration) in the docs for how to rotate it safely.
+
+  ### Combining extensions without repeating `-f` flags
+
+  Instead of passing multiple `-f` flags every time, set `COMPOSE_FILE` in `.env`:
+
+  ```
+  COMPOSE_FILE=docker-compose.yml:extensions/nginx/docker-compose.yml:extensions/watchtower/docker-compose.yml
+  ```
+
+  and then just run `docker compose up -d`.
+
+  ### Vagrant
 
   If you use [Vagrant](https://developer.hashicorp.com/vagrant), there’s a [Vagrantfile](Vagrantfile) to run a Debian box with Docker preinstalled. Start and connect to the box as follows:
 
