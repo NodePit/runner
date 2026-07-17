@@ -32,9 +32,10 @@ services:
     volumes:
       - api-data:/nodepit
     environment:
-      # Built from MONGO_ROOT_USERNAME/MONGO_ROOT_PASSWORD below.
+      # ⚠️ Public default — override in .env before production.
       DB_URL: mongodb://${MONGO_ROOT_USERNAME:-root}:${MONGO_ROOT_PASSWORD:-drnFEtX_PWKizUzKr3KT}@mongodb/nodepit-runner?authSource=admin
       # Shared secret with API_KEY on the executor service below.
+      # ⚠️ Public default — override in .env before production.
       API_KEY: ${API_KEY:-nYCA3oaqhYJ__GEteWye}
       # The URL Runner is reachable at. Change for anything beyond local use.
       WEB_BASE_URL: ${WEB_BASE_URL:-http://localhost:8080}
@@ -76,8 +77,8 @@ services:
     volumes:
       - mongodb-data:/data/db
     environment:
-      # Only used when initializing a new database — see the docs to change
-      # the password later.
+      # Only used when initializing a new database — see docs to change it later.
+      # ⚠️ Public default — override in .env before production.
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:-root}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-drnFEtX_PWKizUzKr3KT}
     logging: *default-logging
