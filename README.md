@@ -25,7 +25,7 @@
   </a>
 </p>
 
-[**NodePit Runner**](https://nodepit.com/product/runner) is the perfect complement to the KNIME Analytics Platform and allows you to deploy, execute and monitor your KNIME workflows in the cloud or on-premises as easy as running them locally. Get more information on features, pricing and how to start your free trial period on [**NodePit**](https://nodepit.com/product/runner).
+[**NodePit Runner**](https://nodepit.com/product/runner) is the perfect complement to the KNIME Analytics Platform and allows you to deploy, execute and monitor your KNIME workflows in the cloud or on-premises as easy as running them locally. It also runs Docker containers, shell scripts, and anything else you can package into an image, so KNIME workflows and containerized workloads can live side by side in the same project — see the [**Quick Start**](https://docs.nodepit.com/runner/quick-start.html) guide to get going. Get more information on features, pricing and how to start your free trial period on [**NodePit**](https://nodepit.com/product/runner).
 
 <p align="center">
   <img src="./docs/nodepit-runner.png" width="800"/>
