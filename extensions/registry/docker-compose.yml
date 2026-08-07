@@ -1,0 +1,40 @@
+# NodePit Runner — registry extension
+#
+# A private Docker registry for the executor's build cache: when an
+# environment builds an image (e.g. from a Dockerfile source), the executor
+# pushes it here after the first build, so other executor instances pull it
+# instead of rebuilding from scratch. Only the executor talks to it. See
+# https://docs.nodepit.com/runner/configuration#private-registry.
+#
+# Bound to 127.0.0.1 only — the image has no authentication by default, and
+# only helps if every executor runs on this host. Reach it manually via an
+# SSH tunnel:
+#   ssh -L 5000:localhost:5000 user@host
+# For multiple hosts, expose it via the nginx extension and add auth (see
+# https://distribution.github.io/distribution/about/deploying/#native-basic-auth),
+# then set DOCKER_REGISTRY_USER/DOCKER_REGISTRY_PASSWORD in .env.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f extensions/registry/docker-compose.yml up -d
+
+services:
+  registry:
+    image: registry:3
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:5000:5000
+    volumes:
+      - registry-data:/var/lib/registry
+
+  executor:
+    depends_on:
+      - registry
+    environment:
+      # localhost, not `registry` — the executor pulls via the host's
+      # Docker daemon, which can't resolve compose service names.
+      DOCKER_REGISTRY_URL: localhost:5000
+      DOCKER_REGISTRY_USER: ${DOCKER_REGISTRY_USER:-}
+      DOCKER_REGISTRY_PASSWORD: ${DOCKER_REGISTRY_PASSWORD:-}
+
+volumes:
+  registry-data:
