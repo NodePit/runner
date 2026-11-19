@@ -18,8 +18,11 @@ services:
       LETSENCRYPT_HOST: ${DOMAIN:?Set DOMAIN in .env before using the nginx extension — see .env.example}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:?Set LETSENCRYPT_EMAIL in .env before using the nginx extension — see .env.example}
 
+  # nginx-proxy runs as two containers, so that the publicly exposed nginx has
+  # no access to the Docker socket:
+  # https://github.com/nginx-proxy/nginx-proxy/blob/1.11.6/docs/README.md#separate-containers
   nginx-proxy:
-    image: nginxproxy/nginx-proxy:1.11.5
+    image: nginx:1.31.2-alpine
     restart: unless-stopped
     ports:
       - 80:80
@@ -28,10 +31,25 @@ services:
       - certs:/etc/nginx/certs
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
-      - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./extensions/nginx/conf.d:/etc/nginx/conf.d
     labels:
+      # docker-gen reloads the container with this label, and reads its networks
+      - com.github.nginx-proxy.nginx-proxy.nginx
+      # acme-companion reloads the container with this label
       - com.github.nginx-proxy.nginx=true
+
+  # renders the nginx configuration from the running containers and reloads
+  # nginx; nginx-proxy's own docker-gen image, which contains the template
+  nginx-proxy-gen:
+    image: nginxproxy/nginx-proxy:1.11.6-dockergen
+    restart: unless-stopped
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    labels:
+      # acme-companion re-renders the configuration through the container with this label
+      - com.github.nginx-proxy.docker-gen
 
   acme-companion:
     image: nginxproxy/acme-companion:2.8.1
