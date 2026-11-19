@@ -17,6 +17,10 @@ services:
       VIRTUAL_HOST: ${DOMAIN:?Set DOMAIN in .env before using the nginx extension — see .env.example}
       LETSENCRYPT_HOST: ${DOMAIN:?Set DOMAIN in .env before using the nginx extension — see .env.example}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:?Set LETSENCRYPT_EMAIL in .env before using the nginx extension — see .env.example}
+    # with HTTPS in front, plain HTTP on port 8080 stays reachable from this
+    # host only (e.g. for an SSH tunnel), instead of bypassing the proxy
+    ports: !override
+      - 127.0.0.1:8080:80
 
   # nginx-proxy runs as two containers, so that the publicly exposed nginx has
   # no access to the Docker socket:
