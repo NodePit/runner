@@ -21,8 +21,12 @@ services:
   # nginx-proxy runs as two containers, so that the publicly exposed nginx has
   # no access to the Docker socket:
   # https://github.com/nginx-proxy/nginx-proxy/blob/1.11.6/docs/README.md#separate-containers
+  #
+  # nginx is pinned on its own, on the mainline branch that nginx-proxy builds
+  # on, so that security fixes don't have to wait for an nginx-proxy release;
+  # the watchtower extension doesn't update it, it's updated in this repository
   nginx-proxy:
-    image: nginx:1.31.2-alpine
+    image: nginx:1.31.9-alpine
     restart: unless-stopped
     ports:
       - 80:80
