@@ -52,6 +52,12 @@ services:
       - nginx-proxy
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      # the template reads its settings from the docker-gen container:
+      # like the default `Mozilla-Intermediate`, but without DHE (and without
+      # ChaCha20 for TLS 1.2), and the server's cipher order decides, also for
+      # TLS 1.3 (whose suites stay the same); see `ssl_policy` in the template
+      SSL_POLICY: AWS-TLS13-1-2-Res-2021-06
     labels:
       # acme-companion re-renders the configuration through the container with this label
       - com.github.nginx-proxy.docker-gen
