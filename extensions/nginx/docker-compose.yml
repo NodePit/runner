@@ -54,6 +54,9 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     environment:
       # the template reads its settings from the docker-gen container:
+      # nothing is in front of nginx-proxy, so it sets the X-Forwarded-* headers
+      # itself instead of passing on what clients send
+      TRUST_DOWNSTREAM_PROXY: "false"
       # like the default `Mozilla-Intermediate`, but without DHE (and without
       # ChaCha20 for TLS 1.2), and the server's cipher order decides, also for
       # TLS 1.3 (whose suites stay the same); see `ssl_policy` in the template
